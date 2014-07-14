@@ -1,5 +1,14 @@
-//$(document).on("page:before-change")
-$(document).on("page:fetch page:receive page:change page:update page:load", function(e){
-  console.log(e.type)
-  return false;
+$(function(){
+  $(".foo").addClass("animation")
+  $(".next").on("click", function(e){
+    var url = $(this).attr("href")
+    $(".foo").on("transitionend", function(e){
+      Turbolinks.visit(url)
+    }).addClass("animation")
+    return false;
+  })
+})
+
+$(document).on("ready page:load page:restore", function(){
+  $(".foo").removeClass("animation")
 })
