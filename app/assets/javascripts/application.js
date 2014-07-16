@@ -12,5 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-pjax
+//***= require vue
+//= require lodash
+//= require backbone
+//= require backbone.marionette
 //= require_tree .

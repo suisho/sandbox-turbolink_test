@@ -14,32 +14,37 @@ $(function(){
   function loadContents(content) {
     $('#container').html(content)
   }
+  var container = new Vue({
+    el: "#container",
+    methods :{
+      change : function(content){
+        $(this.$el).html(content)
+      },
+      clickNext : function(e){
+        var url = $(e.target).attr("href")
+        var animationDeferred = $.Deferred(function(){
+        })
+        $(".foo").one("transitionend", function(){
+          console.log("cmp  anime")
+          animationDeferred.resolve()
+        })
+        var dataDeferred = $.ajax({
+          url : url,
+          beforeSend: function(){
+            console.log("start send")
+          }
+        }).done(function(){
+          console.log("request get")
+        })
+        $.when(dataDeferred , animationDeferred).done(function(content){
+          container.change(content)
+        })
+        $(".foo").addClass("animation")
+      }
+    }
+  })
 
   $(document).on("pjax:end", function(){
     $(".foo").removeClass("animation")
-  })
-  $("a.next").on("click", function(e){
-    var url = $("a.next").attr("href")
-    var animationDeferred = $.Deferred(function(){
-    })
-    $(".foo").one("transitionend", function(){
-      console.log("cmp  anime")
-      animationDeferred.resolve()
-    })
-    var dataDeferred = $.ajax({
-      url : url,
-      beforeSend: function(){
-        console.log("start send")
-      }
-    }).done(function(){
-      console.log("request get")
-    })
-    $.when(dataDeferred , animationDeferred).done(function(content){
-      $('#container').html(content)
-    })
-    $(".foo").addClass("animation")
-    console.log("start anime")
-    
-    return false;
   })
 })

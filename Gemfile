@@ -44,5 +44,9 @@ gem "slim-rails"
 gem "bourbon"
 gem "pry-rails"
 #gem 'rails-assets-jquery'
-gem 'rails-assets-jquery-pjax'
+gem 'rails-assets-vue'
+gem 'rails-assets-stapes'
+gem 'rails-assets-lodash'
+gem 'rails-assets-backbone'
+gem 'rails-assets-backbone.marionette'
 gem "pjax-rails"
