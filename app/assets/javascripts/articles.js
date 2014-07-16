@@ -1,12 +1,5 @@
 $(function(){
   $(".foo").addClass("animation")
-  /*$(".next").on("click", function(e){
-    var url = $(this).attr("href")
-    $(".foo").on("transitionend", function(e){
-      //Turbolinks.visit(url)
-    }).addClass("animation")
-    //return false;
-  })*/
 })
 
 $(document).on("ready page:load page:restore", function(){
@@ -17,16 +10,36 @@ $(document).on("ready page:load page:restore", function(){
 })*/
 
 $(function(){
+
+  function loadContents(content) {
+    $('#container').html(content)
+  }
+
   $(document).on("pjax:end", function(){
-    console.log("aa")
     $(".foo").removeClass("animation")
   })
   $("a.next").on("click", function(e){
+    var url = $("a.next").attr("href")
+    var animationDeferred = $.Deferred(function(){
+    })
     $(".foo").one("transitionend", function(){
-      $.pjax({url : $("a.next").attr("href"), 
-        container : "#container"
-      })
-    }).addClass("animation")
+      console.log("cmp  anime")
+      animationDeferred.resolve()
+    })
+    var dataDeferred = $.ajax({
+      url : url,
+      beforeSend: function(){
+        console.log("start send")
+      }
+    }).done(function(){
+      console.log("request get")
+    })
+    $.when(dataDeferred , animationDeferred).done(function(content){
+      $('#container').html(content)
+    })
+    $(".foo").addClass("animation")
+    console.log("start anime")
+    
     return false;
   })
 })
