@@ -40,6 +40,7 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem "slim-rails"
 gem "bourbon"
 gem "pry-rails"
 #gem 'rails-assets-jquery'
